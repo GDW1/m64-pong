@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "paddle.h"
 #include "main.h"
+#include <vram.h>
 ball_t BALL;
 uint8_t ball_draw_init;
 void ball_init(void){
@@ -41,12 +42,12 @@ Q9_6 compute_ypos(Q9_6 y_n, Q9_6 vy, Q9_6 f){
 }
 
 void ball_advance(){
-    if(BALL.x_pos > GameWidth - 20){
+    if(BALL.x_pos > SINT_TO_Q9_6(GameWidth - 20)){
         left_score++;
         ball_init();
         paddles_init();
         return;
-    }else if(BALL.x_pos < 20){
+    }else if(BALL.x_pos < SINT_TO_Q9_6(20)){
         right_score++;
         ball_init();
         paddles_init();
@@ -54,21 +55,25 @@ void ball_advance(){
     }
     BALL.x_pos += BALL.vx;
     BALL.y_pos += BALL.vy;
+    // TOP BOTTOM COLLISION
     if(BALL.y_pos >= SINT_TO_Q9_6(GameHeight) || BALL.y_pos <= 0){
         BALL.vy = Q9_6_neg(BALL.vy);
         BALL.y_pos += Q9_6_mul(BALL.y_pos >= SINT_TO_Q9_6(GameHeight) ? -1 : 1,
-                               (sint16_to_Q9_6(GameHeight) - BALL.y_pos));
+                               (SINT_TO_Q9_6(GameHeight) - BALL.y_pos));
     }
-    if(BALL.x_pos >= GameWidth - 30 &&
-        (paddle_right.y <= BALL.y_pos) &&
-        (paddle_right.y >= (BALL.y_pos - (8*paddle_height)))){
+    // RIGHT COLLISION
+//    if((BALL.x_pos >= SINT_TO_Q9_6(GameWidth - 30)) &&
+        if((paddle_right.y <= BALL.y_pos) &&
+        (paddle_right.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         BALL.vx = Q9_6_neg(BALL.vx);
         BALL.vx -= SINT_TO_Q9_6(1);
 
     }
-    if(BALL.x_pos <= 30 &&
+    // LEFT COLLISION
+//    if((BALL.x_pos <= SINT_TO_Q9_6(30)) &&
+    if(
        (paddle_left.y <= BALL.y_pos) &&
-       (paddle_left.y >= (BALL.y_pos - (8*paddle_height)))){
+       (paddle_left.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         BALL.vx = Q9_6_neg(BALL.vx);
         BALL.vx += SINT_TO_Q9_6(1);
     }

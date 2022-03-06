@@ -7,7 +7,9 @@
 #include <Q9_6.h>
 #include <vram.h>
 
-extern uint8_t paddle_height;
+#define PADDLE_HEIGHT ((uint8_t)4)
+
+
 typedef enum paddle_side_e {PADDLE_LEFT, PADDLE_RIGHT} paddle_side_t;
 
 typedef struct paddle_s{
