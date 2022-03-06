@@ -41,7 +41,7 @@ Q9_6 compute_ypos(Q9_6 y_n, Q9_6 vy, Q9_6 f){
     return y_n + Q9_6_mul(vy, f);
 }
 
-void ball_advance(){
+void ball_advance(void){
     if(BALL.x_pos > SINT_TO_Q9_6(GameWidth - 20)){
         left_score++;
         ball_init();
@@ -62,16 +62,15 @@ void ball_advance(){
                                (SINT_TO_Q9_6(GameHeight) - BALL.y_pos));
     }
     // RIGHT COLLISION
-//    if((BALL.x_pos >= SINT_TO_Q9_6(GameWidth - 30)) &&
-        if((paddle_right.y <= BALL.y_pos) &&
+    if((BALL.x_pos >= SINT_TO_Q9_6(GameWidth - 38)) &&
+        (paddle_right.y <= BALL.y_pos) &&
         (paddle_right.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         BALL.vx = Q9_6_neg(BALL.vx);
         BALL.vx -= SINT_TO_Q9_6(1);
 
     }
     // LEFT COLLISION
-//    if((BALL.x_pos <= SINT_TO_Q9_6(30)) &&
-    if(
+    if((BALL.x_pos <= SINT_TO_Q9_6(38)) &&
        (paddle_left.y <= BALL.y_pos) &&
        (paddle_left.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         BALL.vx = Q9_6_neg(BALL.vx);

@@ -37,7 +37,7 @@ Q9_6 compute_ypos(Q9_6 y_n, Q9_6 vy, Q9_6 f);
 
 void setBall(ball_t* ball);
 
-void ball_advance();
+void ball_advance(void);
 
 direction_t getDirection(void);
 

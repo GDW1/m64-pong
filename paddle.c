@@ -72,24 +72,24 @@ void paddle_draw(void){
 }
 
 void paddle_movement(void){
-    if(paddle_get_left_input() == CONTROLLER_UP_MASK && Q9_6_to_sint8(paddle_left.y) >= 0){
-        paddle_left.y -= SINT_TO_Q9_6(4);
-    } else if(paddle_get_left_input() == CONTROLLER_DOWN_MASK && Q9_6_to_sint8(paddle_left.y) <= (GameHeight - (8*PADDLE_HEIGHT))){
-        paddle_left.y += SINT_TO_Q9_6(4);
+    if(paddle_get_left_input() == CONTROLLER_UP_MASK && (paddle_left.y) > SINT_TO_Q9_6(0)){
+        paddle_left.y -= SINT_TO_Q9_6(6);
+    } else if(paddle_get_left_input() == CONTROLLER_DOWN_MASK && paddle_left.y < SINT_TO_Q9_6(GameHeight - (8*PADDLE_HEIGHT))){
+        paddle_left.y += SINT_TO_Q9_6(6);
     }
-    if(paddle_get_right_input() == CONTROLLER_UP_MASK && Q9_6_to_sint8(paddle_right.y) >= 0){
-        paddle_right.y -= SINT_TO_Q9_6(4);
-    } else if(paddle_get_right_input() == CONTROLLER_DOWN_MASK && Q9_6_to_sint8(paddle_right.y) <= (GameHeight - (8*PADDLE_HEIGHT))){
-        paddle_right.y += SINT_TO_Q9_6(4);
+    if(paddle_get_right_input() == CONTROLLER_UP_MASK && paddle_right.y > SINT_TO_Q9_6(0)){
+        paddle_right.y -= SINT_TO_Q9_6(6);
+    } else if(paddle_get_right_input() == CONTROLLER_DOWN_MASK && paddle_right.y < SINT_TO_Q9_6(GameHeight - (8*PADDLE_HEIGHT))){
+        paddle_right.y += SINT_TO_Q9_6(6);
     }
 }
 
 void score_draw(void){
     TXBL[5][5] = COLOR_SELECT_MASK |'P';
     TXBL[5][6] = COLOR_SELECT_MASK |'1';
-    TXBL[5][7] = COLOR_SELECT_MASK |'0' + left_score;
+    TXBL[5][9] = COLOR_SELECT_MASK |'0' + left_score;
 
-    TXBL[5][15] = COLOR_SELECT_MASK |'P';
-    TXBL[5][16] = COLOR_SELECT_MASK |'2';
-    TXBL[5][17] = COLOR_SELECT_MASK |'0' + right_score;
+    TXBL[5][25] = COLOR_SELECT_MASK |'P';
+    TXBL[5][26] = COLOR_SELECT_MASK |'2';
+    TXBL[5][29] = COLOR_SELECT_MASK |'0' + right_score;
 }
