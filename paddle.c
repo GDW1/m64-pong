@@ -83,7 +83,7 @@ void paddle_movement(void){
 //    } else if(paddle_get_right_input() == CONTROLLER_DOWN_MASK && paddle_right.y < SINT_TO_Q9_6(GameHeight - (8*PADDLE_HEIGHT))){
 //        paddle_right.y += SINT_TO_Q9_6(6);
 //    }
-    paddle_right.y = BALL.y_pos;
+    paddle_right.y = BALL.y_pos - 8;
 }
 
 void score_draw(void){
