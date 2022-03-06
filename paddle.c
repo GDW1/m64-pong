@@ -12,6 +12,7 @@
 #include <mapache64_zero_page.h>
 #include "backend/headers/Q9_6.h"
 #include "main.h"
+#include "ball.h"
 paddle_t paddle_left;
 paddle_t paddle_right;
 uint8_t paddle_draw_init;
@@ -77,11 +78,12 @@ void paddle_movement(void){
     } else if(paddle_get_left_input() == CONTROLLER_DOWN_MASK && paddle_left.y < SINT_TO_Q9_6(GameHeight - (8*PADDLE_HEIGHT))){
         paddle_left.y += SINT_TO_Q9_6(6);
     }
-    if(paddle_get_right_input() == CONTROLLER_UP_MASK && paddle_right.y > SINT_TO_Q9_6(0)){
-        paddle_right.y -= SINT_TO_Q9_6(6);
-    } else if(paddle_get_right_input() == CONTROLLER_DOWN_MASK && paddle_right.y < SINT_TO_Q9_6(GameHeight - (8*PADDLE_HEIGHT))){
-        paddle_right.y += SINT_TO_Q9_6(6);
-    }
+//    if(paddle_get_right_input() == CONTROLLER_UP_MASK && paddle_right.y > SINT_TO_Q9_6(0)){
+//        paddle_right.y -= SINT_TO_Q9_6(6);
+//    } else if(paddle_get_right_input() == CONTROLLER_DOWN_MASK && paddle_right.y < SINT_TO_Q9_6(GameHeight - (8*PADDLE_HEIGHT))){
+//        paddle_right.y += SINT_TO_Q9_6(6);
+//    }
+    paddle_right.y = BALL.y_pos;
 }
 
 void score_draw(void){
