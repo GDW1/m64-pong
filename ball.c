@@ -26,21 +26,6 @@ void setBall(ball_t* ball){
     BALL.vy    = ball->vy;
 }
 
-Q9_6 compute_path(ball_t* ball){
-    Q9_6 frame_1;
-    frame_1 = Q9_6_div((ball->vx < 0 ? (ball->x_pos-20) : (GameWidth - ball->x_pos - BallWidth)), ball->vx);
-    return compute_ypos(ball->y_pos, ball->vy, frame_1);
-}
-
-
-Q9_6 compute_xpos(Q9_6 x_n, Q9_6 vx, Q9_6 f){
-    return x_n + Q9_6_mul(vx, f);
-}
-
-Q9_6 compute_ypos(Q9_6 y_n, Q9_6 vy, Q9_6 f){
-    return y_n + Q9_6_mul(vy, f);
-}
-
 void ball_advance(void){
     if(BALL.x_pos > SINT_TO_Q9_6(GameWidth - 20)){
         left_score++;
@@ -62,19 +47,19 @@ void ball_advance(void){
                                (SINT_TO_Q9_6(GameHeight) - BALL.y_pos));
     }
     // RIGHT COLLISION
-    if((BALL.x_pos >= SINT_TO_Q9_6(GameWidth - 38)) &&
+    if((BALL.x_pos >= SINT_TO_Q9_6(GameWidth - 38)) && (BALL.x_pos <= SINT_TO_Q9_6(GameWidth - 36)) &&
         (paddle_right.y <= BALL.y_pos) &&
         (paddle_right.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         BALL.vx = Q9_6_neg(BALL.vx);
-        BALL.vx -= SINT_TO_Q9_6(1);
+        BALL.vx -= Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(2));
 
     }
     // LEFT COLLISION
-    if((BALL.x_pos <= SINT_TO_Q9_6(38)) &&
+    if((BALL.x_pos <= SINT_TO_Q9_6(38)) && (BALL.x_pos >= SINT_TO_Q9_6(32)) &&
        (paddle_left.y <= BALL.y_pos) &&
        (paddle_left.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         BALL.vx = Q9_6_neg(BALL.vx);
-        BALL.vx += SINT_TO_Q9_6(1);
+        BALL.vx += Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(2));
     }
 }
 

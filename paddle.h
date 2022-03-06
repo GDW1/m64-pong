@@ -25,4 +25,5 @@ void paddles_init(void);
 void paddle_draw(void);
 void paddle_movement(void);
 void score_draw(void);
+void clear_TXBL(void);
 #endif //PONG_PADDLE_H

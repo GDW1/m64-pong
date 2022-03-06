@@ -27,6 +27,7 @@ uint8_t right_score;
 
 
 void reset(void) {
+    clear_TXBL();
     paddles_init();
     ball_init();
     left_score = 0;

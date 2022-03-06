@@ -91,5 +91,15 @@ void score_draw(void){
 
     TXBL[5][25] = COLOR_SELECT_MASK |'P';
     TXBL[5][26] = COLOR_SELECT_MASK |'2';
-    TXBL[5][29] = COLOR_SELECT_MASK |'0' + right_score;
+    TXBL[5][28] = COLOR_SELECT_MASK |'0' + right_score;
+}
+
+void clear_TXBL(void){
+    uint8_t i, j;
+    for(i = 0; i < 32; i++){
+        for(j = 0; j < 30; j++)
+        {
+            TXBL[i][j] = 0x00;
+        }
+    }
 }
