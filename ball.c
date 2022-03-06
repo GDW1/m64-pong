@@ -41,7 +41,7 @@ void ball_advance(void){
     BALL.x_pos += BALL.vx;
     BALL.y_pos += BALL.vy;
     // TOP BOTTOM COLLISION
-    if(BALL.y_pos >= SINT_TO_Q9_6(GameHeight-8) || BALL.y_pos <= 0){
+    if((BALL.y_pos >= SINT_TO_Q9_6(GameHeight-8) && BALL.vy < SINT_TO_Q9_6(0)) || (BALL.y_pos <= 0 && BALL.vy > SINT_TO_Q9_6(0))){
         BALL.vy = Q9_6_neg(BALL.vy);
         BALL.y_pos += Q9_6_mul(BALL.y_pos >= SINT_TO_Q9_6(GameHeight) ? -1 : 1,
                                (SINT_TO_Q9_6(GameHeight) - BALL.y_pos));
@@ -52,13 +52,13 @@ void ball_advance(void){
             (paddle_right.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         if(BALL.y_pos - paddle_right.y < SINT_TO_Q9_6(8)){
             BALL.vy = Q9_6_neg(BALL.vy);
-            BALL.vy -= Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(10));
+            BALL.vy -= Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(3));
         }else if(BALL.y_pos - paddle_right.y > SINT_TO_Q9_6(16)){
             BALL.vy = Q9_6_neg(BALL.vy);
-            BALL.vy += Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(10));
+            BALL.vy += Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(3));
         }
         BALL.vx = Q9_6_neg(BALL.vx);
-        BALL.vx -= Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(10));
+        BALL.vx -= Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(3));
 
     }
     // LEFT COLLISION
@@ -67,13 +67,13 @@ void ball_advance(void){
        (paddle_left.y >= (BALL.y_pos - SINT_TO_Q9_6(8*PADDLE_HEIGHT)))){
         if(BALL.y_pos - paddle_left.y < SINT_TO_Q9_6(8)){
             BALL.vy = Q9_6_neg(BALL.vy);
-            BALL.vy -= Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(10));
+            BALL.vy -= Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(3));
         }else if(BALL.y_pos - paddle_left.y > SINT_TO_Q9_6(16)){
             BALL.vy = Q9_6_neg(BALL.vy);
-            BALL.vy += Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(10));
+            BALL.vy += Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(3));
         }
         BALL.vx = Q9_6_neg(BALL.vx);
-        BALL.vx += Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(10));
+        BALL.vx += Q9_6_div(SINT_TO_Q9_6(1), SINT_TO_Q9_6(3));
     }
 }
 
