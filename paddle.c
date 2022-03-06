@@ -87,7 +87,7 @@ void paddle_movement(void){
 void score_draw(void){
     TXBL[5][5] = COLOR_SELECT_MASK |'P';
     TXBL[5][6] = COLOR_SELECT_MASK |'1';
-    TXBL[5][9] = COLOR_SELECT_MASK |'0' + left_score;
+    TXBL[5][8] = COLOR_SELECT_MASK |'0' + left_score;
 
     TXBL[5][25] = COLOR_SELECT_MASK |'P';
     TXBL[5][26] = COLOR_SELECT_MASK |'2';
